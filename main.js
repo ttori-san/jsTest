@@ -60,22 +60,6 @@ const OffensiveRolls = Rolls.filter(eachRoll => eachRoll !== 'healer');
 console.log(OffensiveRolls);
 
 // const players  = new Object();・・・下の意味と一緒
-const players = {
-  "Honda":{
-    "number":4,
-    "dominant_foot":'left',
-  },
-  "Kagawa":{
-    "number":10,
-    "dominant_foot":'right',
-  }
-}
-//取得の際にはオブジェクト・オブジェクトを使う
-console.log(Object.values(players.Honda));
-console.log(Object.keys(players.Honda));
-for ( player of Object.keys(players)){
-  console.log(player);
-}
 
 
 const postalCode ='1234-5678';
@@ -91,8 +75,8 @@ console.log(typeof(changedToNum),changedToNum);//numberだがNaN
   // postalCode : '1234-5678',
 
   checkPostalCode(string){
-    const replacedPostalCode = string.replace("-","");
-    if (replacedPostalCode.length === 7 ){
+    const replacedPostalCode = string.replace("-","").length;//メソッドチェーン。replace の後にlengthを繋げている
+    if (replacedPostalCode === 7 ){
       return true;
     }else{
       return false;
@@ -108,3 +92,49 @@ console.log(postal.checkPostalCode(postalCode));
 //     return false;
 //   }
 // }
+// const SamuraiJapan = {
+//   player:{
+//     player1:{
+//       name: 'イチロー',
+//       condition :'retired',
+//     },
+//     player2:{
+//       name: '松井',
+//       condition :'retired', 
+//     },
+//   },
+
+//   getName(){
+//   const playersName = Object.values(this.player);
+//     console.log(playersName);
+//     Object.forEach(funtion()
+//     )
+//   },
+// };
+// SamuraiJapan.getName();
+
+
+const objObj = {
+  test1:0,
+  test2:1,
+  test3:3,
+}
+console.log(objObj.test1);
+console.log(Object.values(objObj));
+
+for (  value of Object.values(objObj) )
+{
+  console.log(value);
+}
+
+const players = {
+  "Honda":{
+    "number":4,
+    "dominant_foot":'left',
+  },
+  "Kagawa":{
+    "number":10,
+    "dominant_foot":'right',
+  }
+}
+//取得の際にはオブジェクト・オブジェクトを使う
