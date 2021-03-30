@@ -1,4 +1,14 @@
 'use strict';
+(function immidiate (){
+  console.log('即時関数です');
+})();
+
+for (let i = 0; i <= 10; i++){
+  const a = Math.random() * 5;
+  const b = Math.floor(a);
+  console.log(a);
+  console.log(b);
+}
 
 const images = [
   'images/image000.jpg',
@@ -10,6 +20,20 @@ const images = [
   'images/image006.jpg',
 ];
 
+document.addEventListener( 'DOMContentLoaded', () => {
+  setInterval(() => {
+    // let target = currentIndex + 1;//画像配列番号を1ずつあげてく
+    let target = Math.floor(Math.random() * images.length)
+    // if (target === images.length){
+    //   target = 0;
+    // }
+    console.log(target);
+    document.querySelectorAll('.carousel__thumbnails > li')[target].click()
+  }, 2000);
+});
+// for (let i = 0; i < 10; i++){
+//   console.log(Math.floor(Math.random()*images.length ));//0~9までの数字を出力
+// }
 let currentIndex = 0;
 
 const mainImage = document.getElementById('carousel__main');
@@ -47,6 +71,14 @@ next.addEventListener('click', () => {
   let target = currentIndex + 1;
   if (target === images.length){
     target = 0;
+  }
+  document.querySelectorAll('.carousel__thumbnails > li')[target].click();
+});
+const prev = document.getElementById('carousel__prev');
+prev.addEventListener('click', () => {
+  let target = currentIndex -1;
+  if( target === 0){
+    target = images.length -1;
   }
   document.querySelectorAll('.carousel__thumbnails > li')[target].click();
 });

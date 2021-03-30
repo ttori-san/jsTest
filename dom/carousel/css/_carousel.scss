@@ -8,6 +8,9 @@
     width: 640px;
     height: 400px;
     margin:0 auto;
+    & > .fadeOut{
+      animation: fadeOut 0.8s;
+    }
     & > .active{
       animation: fadeImg 0.8s;
     }
@@ -55,7 +58,14 @@
   }
 }
 
-
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 @keyframes fadeImg {
   from {
     opacity: 0;

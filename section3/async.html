@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async</title>
+</head>
+<body>
+    <script>
+        function test1(){
+            return '関数1です';
+        }
+
+        //非同期　関数
+        // async function aTest1(){
+        //     return '非同期関数1';//asyncをつけるだけで返り値がPromiseになり、resolve/rejectや,then()が使えるようになる
+        //     // returnで返る値　＝＝resolve, throwで返る値　＝＝reject　である
+        // }
+        // console.log(test1());
+        // console.log(aTest1());
+        // aTest1().then((value) => {console.log(`${value}:2回目です`)});
+
+        //await ... asyncの中でのみ使える
+
+        function waiting(seconds){
+            return new Promise( (resolve,reject) => {
+                setTimeout(()=> {
+                    console.log(seconds);
+                    resolve();
+                },1000 * seconds);
+
+            })
+            reject ('Something wrong!');
+        }
+        async function aTest2(){
+            console.log(1);
+            await waiting(2).catch(e => console.log(e));
+            console.log(3);
+        }
+
+        aTest2();
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntersectiuonObserverAPI</title>
+    <style>
+        .h300{
+            height: 300px;
+        }
+        .pink{
+            background-color: pink;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .message-box{
+            height:100px;
+            width: 100px;
+            background-color: white;
+            color: black;
+            opacity: 0;
+        }
+        .show{
+            opacity: 1;
+            transition: opacity 0.5s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <div class="h300 blue"></div>
+    <div class="h300 pink"></div>
+    <div class="h300 blue relative">
+        <div class="message-box">AAA</div>
+    </div>
+    <div class="h300 pink"></div>
+    <div class="h300 blue relative">
+        <div class ="message-box">BBB</div>
+    </div>
+    <div class="h300 pink"></div>
+
+    <script>
+        const options = {
+            rootMargin: '-200px',
+            thr
+            
+        };
+        const observer = new IntersectionObserver(callback,options);
+        const targets = document.querySelectorAll('.message-box');
+
+        targets.forEach( (target) => observer.observe(target));
+        
+        function callback(entries){
+            entries.forEach(entry => {
+                console.log(entry);
+                if(entry.isIntersectiong){
+                    entry.target.classList.add('show');
+                }
+            })
+        }
+        </script>
+</body>
+</html>
