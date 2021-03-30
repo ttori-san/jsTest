@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+</head>
+<body>
+    <script>
+        // fetch(url,options);
+        url = 'https://dog.ceo/api/breeds/image/random';
+        const options = {
+            method:'GET',
+        }
+        const fetchTest = fetch(url,options);
+        console.log(fetchTest);
+        //返り値はPromise
+        //このままだと中身は確認できない
+        // つなげたいAPIのURLとオブジェクト形式のオプション（複数設定可）
+
+        //APIがJSONで取得できるのであれば、response.json()で自動的にパースする
+        //パースする＝＝本来JSでは読み込めないJSON形式をJSのオブジェクトに直す（エンコード）ことでJSで扱えるようにする
+        
+        const fetchTest1 = fetch(url,options)
+        //Promiseなのでthen()が使える
+        .then( response => response.json() );
+        console.log(fetchTest1);
+        
+        console.log(fetchTest1.message);//undifined データ取得前にコンソールに出力している
+
+        function getDogImage (url, options){
+            return fetch(url, options)
+            .then(response => response.json());
+        }
+
+        async function getImage(url,options){
+            const response = await getDogImage(url,options);
+            console.log(response.message);
+        }
+        getImage(url,options);
+        
+    </script>
+</body>
+</html>
