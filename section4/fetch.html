@@ -5,18 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch</title>
+    <style>
+        .w300{
+            width: 300px;
+        }
+    </style>
 </head>
 <body>
+    <div id="img"></div>
     <script>
         // fetch(url,options);
         url = 'https://dog.ceo/api/breeds/image/random';
-        const options = {
-            method:'GET',
-        }
+       const options = {
+           method:'GET',
+       }
         const fetchTest = fetch(url,options);
         console.log(fetchTest);
         //返り値はPromise
-        //このままだと中身は確認できない
+        //ただし、このままだと中身は確認できない　ResponseのbodyにReadableStreamと表示される
         // つなげたいAPIのURLとオブジェクト形式のオプション（複数設定可）
 
         //APIがJSONで取得できるのであれば、response.json()で自動的にパースする
@@ -24,19 +30,40 @@
         
         const fetchTest1 = fetch(url,options)
         //Promiseなのでthen()が使える
-        .then( response => response.json() );
-        console.log(fetchTest1);
+        .then(response => response.json());
         
-        console.log(fetchTest1.message);//undifined データ取得前にコンソールに出力している
+        console.log(fetchTest1);//undifined データ取得前にコンソールに出力している
 
-        function getDogImage (url, options){
-            return fetch(url, options)
-            .then(response => response.json());
+
+
+        // function fetchImage (url,options){
+        //     return fetch(url,options)
+        //     .then(response => response.json());
+        // }
+
+        function fetchDogImage(url,options){
+            return fetch(url,options)
+            .then(response => {
+                console.log(response.ok);
+                console.log(response.status);
+                if (response.ok){
+                    return response.json();
+                }
+
+                throw new Error('エラーです');
+            }).catch(e => console.log(e.message));//Errorの’エラーです’が表示
         }
 
         async function getImage(url,options){
-            const response = await getDogImage(url,options);
+            const response = await fetchDogImage(url,options);
             console.log(response.message);
+
+            const imageElement = document.createElement('img');
+            imageElement.src = response.message;
+            imageElement.classList.add('w300');
+
+            const imgDiv = document.getElementById('img')
+            imgDiv.appendChild(imageElement);
         }
         getImage(url,options);
         
