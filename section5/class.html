@@ -8,38 +8,54 @@
 </head>
 <body>
     <script>
-        class Product{
-            constructor(appleProduct){
-                this.product = appleProduct;//インスタンスのプロパティはメソッド内のみで設定可能（意味わかったよ）
+        class BaseProduct{
+            echoProduct(){
+                console.log('親クラスです');
             }
-            getProduct(product){
-                return `${product}はAppleでは扱っておりません`;
-            }
-            addProduct(item){
-                this.product += item;
+            getProduct(){//オーバーライドされるため、実行されない
+                console.log('親のメソッドです');
             }
         }
-
-        const product = new Product('MacBook Air');
-        console.log(product.product);
-        console.log(product.getProduct('洗濯機'));
+        //1ファイル1クラスが原則
+        //class直下にプロパティを書く場合はbabelによる変換が要る
+        //プロパティは基本関数内に書く
         
-        // const Student = class{
-        //     constructor(name){
-        //         this.name = name;
-        //     }
-        //     avg(math,eng){
-        //         console.log((math + eng) / 2);
-        //     }
-        // };
-
-        // let a001 = new Student('Sato');
-        // console.log(a001.name);
-
-        // const a002 = new Student('Kato');
-        // // a002.name = 'Kato';
-        // console.log(a002.name);
+class Product extends BaseProduct{
         
+    constructor(productName){
+        // this.product = productName;
+        super();//子クラスでコンストラクター使うなら必須親クラスのコンストラクターを参照するの意味
+        this.product = [productName];
+    }
+    getProduct(){
+        console.log(this.product);
+    }
+    // addProduct(item){
+    //     this.product+=item;
+    // }
+    pushProduct(item){
+        this.product.push(item);
+        console.log(this.product);
+    }
+
+    static testProduct(){
+        alert('静的メソッドです');
+    }
+}
+Product.testProduct();//staticで静的メソッドとしているからインスタンス化無しでいきなり使える
+// Product.getProduct();//newする前に使うとエラーになる
+
+const product = new Product('掃除機');
+console.log(product.product);
+product.getProduct();//同上
+// product.addProduct('ルンバ');
+// product.getProduct();
+product.pushProduct('ダイソン');
+product.getProduct();
+product.echoProduct();
+product.getProduct();
+
+
     </script>
 </body>
 </html>
